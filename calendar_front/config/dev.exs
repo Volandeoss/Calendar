@@ -28,7 +28,8 @@ config :calendar_front, CalendarFrontWeb.Endpoint,
   secret_key_base: "RPukShy+Vvj8hmC+lObD4hDTJDMFUxtD+hQ/qvpmiPZjSKc8fftFyt63TtNtzzez",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:calendar_front, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:calendar_front, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:calendar_front, ~w(--watch)]},
+    esbuild: {Esbuild, :install_and_run, [:catalogue, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -56,11 +57,13 @@ config :calendar_front, CalendarFrontWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :calendar_front, CalendarFrontWeb.Endpoint,
+  reloadable_compilers: [:gettext, :elixir, :app, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/calendar_front_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/calendar_front_web/(controllers|live|components)/.*(ex|heex|sface|js)$",
+      ~r"priv/catalogue/.*(ex)$"
     ]
   ]
 

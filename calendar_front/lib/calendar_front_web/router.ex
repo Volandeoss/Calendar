@@ -1,6 +1,8 @@
 defmodule CalendarFrontWeb.Router do
   use CalendarFrontWeb, :router
 
+  import Surface.Catalogue.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -17,7 +19,10 @@ defmodule CalendarFrontWeb.Router do
   scope "/", CalendarFrontWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+
+    live "/", Calendar
+    # get "/", PageController, :home
+    live "/demo", Demo
   end
 
   # Other scopes may use custom stacks.
@@ -39,6 +44,13 @@ defmodule CalendarFrontWeb.Router do
 
       live_dashboard "/dashboard", metrics: CalendarFrontWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
+  end
+
+  if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      surface_catalogue "/catalogue"
     end
   end
 end

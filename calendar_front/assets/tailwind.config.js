@@ -9,7 +9,9 @@ module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/calendar_front_web.ex",
-    "../lib/calendar_front_web/**/*.*ex"
+    "../lib/calendar_front_web/**/*.*ex",
+    "../lib/calendar_front_web/**/*.sface",
+    "../priv/catalogue/**/*.{ex,sface}"
   ],
   theme: {
     extend: {
